@@ -1,8 +1,9 @@
 <?php
 
-ini_set('display_errors', 'On');
+ini_set('display_errors', 'On');//Turning the debug messages ON
 error_reporting(E_ALL);
 
+//Class to load classes when the program fails for calling the missing class
 class Manage 
 {
     public static function autoload($class) 
@@ -13,17 +14,17 @@ class Manage
 
 spl_autoload_register(array('Manage', 'autoload'));
 
-$obj = new main();
+$obj = new main();//Creating and instantiating the object of the class
 
 class main 
 {
     public function __construct()
     {
-        $pageRequest = 'homepage';
+        $pageRequest = 'homepage';//Setting default page when no parameters are in URL
         
-        if(isset($_REQUEST['page'])) 
+        if(isset($_REQUEST['page'])) //Checking for the parameters
         {
-            $pageRequest = $_REQUEST['page'];
+            $pageRequest = $_REQUEST['page'];//Loading the page
         }
         
         $page = new $pageRequest;
@@ -45,19 +46,19 @@ abstract class page
 
     public function __construct()
     {
-        $this->html .= '<html>';
+        /*$this->html .= '<html>';
         $this->html .= '<link rel = "stylesheet" href = "styles.css">';
-        $this->html .= '<body>';
+        $this->html .= '<body>';*/
     }
     public function __destruct()
     {
-        $this->html .= '</body></html>';
+        //$this->html .= '</body></html>';
         stringFunctions::printThis($this->html);
     }
 
     public function get() 
     {
-        echo 'default get message';
+        echo 'Welcome';
     }
 
     public function post() 
@@ -70,6 +71,7 @@ class homepage extends page
 {
     public function get()
     {
+        //Displaying the HTML form for uploading the CSV files
         $form = '<form method="post" enctype="multipart/form-data">';
         $form .= '<input type="file" name="fileToUpload" id="fileToUpload">';
         $form .= '<input type="submit" value="Upload File" name="submit">';
@@ -86,7 +88,7 @@ class homepage extends page
         $csvFileType = pathinfo($saved_file,PATHINFO_EXTENSION);
         $csvFileName = pathinfo($saved_file,PATHINFO_BASENAME);
         move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $saved_file); //Saving the csv file in the directory on AFS
-        header('Location: index.php?page=htmlTable&filename='.$saved_file);
+        header('Location: index.php?page=htmlTable&filename='.$saved_file);//Sending the HTTP Header
     }
 }
 
@@ -118,8 +120,8 @@ class htmlTable extends page
             }
             echo '</tr>';  
         }
-        echo '</table>';
-        fclose($convert);
+        echo '</table>';//Displaying the table
+        fclose($convert);//Closing the file
     }
 }
 
