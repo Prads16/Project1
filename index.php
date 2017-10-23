@@ -20,7 +20,7 @@ class main
 {
     public function __construct()
     {
-        $pageRequest = 'homepage';//Setting default page when no parameters are in URL
+        $pageRequest = 'upload';//Setting default page when no parameters are in URL
         
         if(isset($_REQUEST['page'])) //Checking for the parameters
         {
@@ -53,7 +53,7 @@ abstract class page
     public function __destruct()
     {
         //$this->html .= '</body></html>';
-        stringFunctions::printThis($this->html);
+        stringfunctions::printThis($this->html);
     }
 
     public function get() 
@@ -67,7 +67,7 @@ abstract class page
     }
 }
 
-class homepage extends page 
+/*class homepage extends page 
 {
     public function get()
     {
@@ -90,9 +90,9 @@ class homepage extends page
         move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $saved_file); //Saving the csv file in the directory on AFS
         header('Location: index.php?page=htmlTable&filename='.$saved_file);//Sending the HTTP Header
     }
-}
+}*/
 
-class htmlTable extends page 
+/*class htmlTable extends page 
 {
     public function get()
     {
@@ -123,14 +123,14 @@ class htmlTable extends page
         echo '</table>';//Displaying the table
         fclose($convert);//Closing the file
     }
-}
+}*/
 
-class stringFunctions 
+/*class stringFunctions 
 {
      static public function printThis($inputText) 
      {
         return print($inputText);
      }
-}
+}*/
 
 ?>
